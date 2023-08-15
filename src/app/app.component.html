@@ -1,13 +1,23 @@
-
+<!-- 
 <div (click)="pegarPokemon()"> Clique em mim, vou buscar um pokemon</div>
 
-
+<div (click)="pegarPokemonsAleatorios()"> Clique em mim, vou buscar pokemons aleatórios</div> -->
 
 <div  *ngIf="pokemon">
   nome dele:{{pokemon.name}}
   <img style="height: 400px;" [src]="pokemon.sprites.front_default">
 </div>
 
+<div (click)="gerarLista()">Clique em mim pra começar tudo</div>
 
+
+<div *ngFor="let item of pokemonOptionsList; let i=index" >
+  <div (click)="selectPokemon(item)">{{item}}</div>
+</div>
+
+
+<!-- <button (click)="playSomQuem()">▶️ play</button> -->
+
+Seu score é: {{score}}
 
 <router-outlet></router-outlet>
