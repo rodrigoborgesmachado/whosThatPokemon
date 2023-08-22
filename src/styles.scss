@@ -1,5 +1,40 @@
 /* You can add global styles to this file, and also import other style files */
 
+:root {
+    --primary-color:#072AC8;
+    --background-color: #FDFDFE;
+    --text-color-primary: #191C1B;
+    --text-color-secondary: #BEC9C4;
+    --text-color-accent: #2CDEBF;
+    --text-color-code: #426278;
+    --text-color-button: #FFFFFF;
+
+    //BUTTON - primary
+    --button-color-primary: #006B59;
+
+        //BUTTON - primary - hover
+        --button-color-primary-hover: rgb(0, 107, 89,0.9);
+
+        //BUTTON - primary - disabled
+        --button-color-primary-disabled: rgba(31, 31, 31, 0.12);
+        --button-text-primary-disabled: rgba(25, 28, 27, 1);
+
+    --separator-color-primary: #3F4946;
+    --separator-marker-color-primary: #006B59;
+  
+    --block-color: #FAFDFA;
+    --block-color-secundary: #FAFDFA;
+
+    --color-surface:#FFFFFF;
+    --color-surface-variant:#1F1F1F;
+}
+
+body {
+    font-family: 'Poppins';font-size: 22px;
+}
+
+
+
 
 .global-silhouette{
     //mudar tamanho não deveria estar aqui
@@ -7,4 +42,67 @@
     filter: contrast(0) sepia(100%) hue-rotate(190deg) saturate(2000%) brightness(100%);
     opacity: 1;
     height: 400px;
+}
+
+.global-card{
+    background-color: var(--color-surface);
+    border-radius: 24px;
+    box-shadow: 0 0 2px 0 rgba(0,0,0,.14),0 2px 2px 0 rgba(0,0,0,.12),0 1px 3px 0 rgba(0,0,0,.2)!important;
+    padding: 24px;
+    width: 360px;
+
+    .global-card-header{
+        display: flex;
+        justify-content: space-between;
+        flex-flow: wrap;
+    }
+
+    .global-card-body{
+        
+    }
+}
+
+.global-lineWrapper{
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.global-elementCard{
+    
+    display: flex;
+    border-radius: 50px;
+    padding: 4px 8px;
+    align-items: center;
+    gap: 8px;
+
+    .global-elementCard-outline{
+        background-color: white;
+        border-radius: 50px;
+        padding: 4px 6px;
+        display: flex;
+
+        svg{
+            height: 20px;
+        }
+    }
+}
+
+.grass{
+    background-color: rgb(99, 188, 90);
+}
+.poison{
+    background-color: #B567CE;
+}
+
+h1{
+    color: #333333;
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+h2{
+    color: #333333;
+    margin-top: 2px;
+    margin-bottom: 2px;
 }
