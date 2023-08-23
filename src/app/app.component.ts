@@ -10,13 +10,20 @@ import { lastValueFrom } from 'rxjs';
 export class AppComponent {
   title = 'whosThatPokemon';
 
-  constructor(private contactService: PokemonService) { }
+  constructor(private contactService: PokemonService) {
+    this.gerarLista();
+
+   }
 
   pokemon:any;
   randomPokemonList:any;
   pokemonOptionsList:any;
   score = 0;
   loading = false;
+  revealed = false;
+  errou = false;
+  acertou = false;
+  audioWhoIs = new Audio();
 
   async pegarPokemon(){
     const id = Math.floor(Math.random() * (151 - 1 + 1) + 1)
@@ -32,10 +39,11 @@ export class AppComponent {
   }
 
   playSomQuem(){
-    let audio = new Audio();
-    audio.src = "../assets/audio/br-quem.mp3";
-    audio.load();
-    audio.play();
+    this.audioWhoIs.pause();
+    this.audioWhoIs.currentTime = 0;
+    this.audioWhoIs.src = "../assets/audio/br-quem.mp3";
+    this.audioWhoIs.load();
+    this.audioWhoIs.play()
   }
 
   async selectPokemon(name:string){
@@ -44,11 +52,16 @@ export class AppComponent {
 
     if(this.pokemon.name==name){
       this.score++;
+      this.acertou = true;
     }else{
-
+      this.score = 0;
+      this.errou = true;
     }
 
-    this.gerarLista();
+    this.revealed = true;
+
+
+    //this.gerarLista();
 
     //let audio = new Audio();
     //let audio2 = new Audio();
@@ -67,7 +80,11 @@ export class AppComponent {
   }
 
   async gerarLista(){
+    this.playSomQuem();
     this.loading=true;
+    this.acertou = false;
+    this.errou = false;
+    this.revealed = false;
     
     await this.pegarPokemon();
     await this.pegarPokemonsAleatorios();
@@ -75,7 +92,6 @@ export class AppComponent {
     this.pokemonOptionsList = this.randomPokemonList.map((x: { name: any; })=>{return x.name});
     this.pokemonOptionsList.splice((this.pokemonOptionsList.length+1) * Math.random() | 0, 0, this.pokemon.name);
     this.loading = false;
-    this.playSomQuem();
   }
 
 

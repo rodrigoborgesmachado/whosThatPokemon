@@ -41,7 +41,7 @@ body {
     -webkit-filter: contrast(0) sepia(100%) hue-rotate(190deg) saturate(2000%) brightness(100%);
     filter: contrast(0) sepia(100%) hue-rotate(190deg) saturate(2000%) brightness(100%);
     opacity: 1;
-    height: 400px;
+    width: 100%;
 }
 
 .global-card{
@@ -86,6 +86,21 @@ body {
             height: 20px;
         }
     }
+}
+
+
+.poke-option-wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.poke-option{
+    border: 1px solid lightgrey;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    padding: 8px;
+    cursor: pointer;
 }
 
 .grass{
