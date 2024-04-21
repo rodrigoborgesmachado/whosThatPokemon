@@ -23,7 +23,6 @@ export class AppComponent {
   revealed = false;
   errou = false;
   acertou = false;
-  audioWhoIs = new Audio();
 
   async pegarPokemon(){
     const id = Math.floor(Math.random() * (151 - 1 + 1) + 1)
@@ -31,56 +30,24 @@ export class AppComponent {
     this.pokemon = await lastValueFrom(articles$);
   }
 
-  //mudar deixar lista mais aleatória
   async pegarPokemonsAleatorios(){
     const articles$ = this.contactService.getRandomPokemon(3);
     this.randomPokemonList = await lastValueFrom(articles$);
-    console.log(this.randomPokemonList);
-  }
-
-  playSomQuem(){
-    this.audioWhoIs.pause();
-    this.audioWhoIs.currentTime = 0;
-    this.audioWhoIs.src = "../assets/audio/br-quem.mp3";
-    this.audioWhoIs.load();
-    this.audioWhoIs.play()
   }
 
   async selectPokemon(name:string){
-
-    //https://translate.google.com.vn/translate_tts?ie=UTF-8&q=Pikachu&tl=pt&client=tw-ob
 
     if(this.pokemon.name==name){
       this.score++;
       this.acertou = true;
     }else{
-      this.score = 0;
       this.errou = true;
     }
 
     this.revealed = true;
-
-
-    //this.gerarLista();
-
-    //let audio = new Audio();
-    //let audio2 = new Audio();
-    //audio.src = "../assets/audio/br-eh.mp3";
-    //audio2.src = "https://translate.google.com.vn/translate_tts?ie=UTF-8&q=Pikachu&tl=pt&client=tw-ob";
-    //audio.load();
-    //const articles$ = this.contactService.getName(this.pokemon.name);
-    //let audio123 = await lastValueFrom(articles$);
-
-    //debugger;
-    
-
-    //audio.play();
-    //audio2.load();
-    //audio2.play();
   }
 
   async gerarLista(){
-    this.playSomQuem();
     this.loading=true;
     this.acertou = false;
     this.errou = false;
@@ -94,6 +61,11 @@ export class AppComponent {
     this.loading = false;
   }
 
+  async reiniciar(){
+    this.score = 0;
+
+    this.gerarLista();
+  }
 
 }
 

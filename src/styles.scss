@@ -50,11 +50,14 @@ body {
     box-shadow: 0 0 2px 0 rgba(0,0,0,.14),0 2px 2px 0 rgba(0,0,0,.12),0 1px 3px 0 rgba(0,0,0,.2)!important;
     padding: 24px;
     width: 360px;
+    margin: auto;
+    margin-top: 56px;
 
     .global-card-header{
         display: flex;
         justify-content: space-between;
         flex-flow: wrap;
+        margin-bottom: 16px;
     }
 
     .global-card-body{
