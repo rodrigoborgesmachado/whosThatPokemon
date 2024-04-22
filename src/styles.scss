@@ -124,3 +124,19 @@ h2{
     margin-top: 2px;
     margin-bottom: 2px;
 }
+
+.button-options{
+    display: flex;
+    flex-direction: column;
+}
+
+.button-options button{
+    margin: 16px;
+    padding: 16px;
+    background-color: var(--text-color-button);
+}
+
+.div-intro {
+    display: flex;
+    justify-content: space-between;
+}

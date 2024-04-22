@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { PokemonService } from './services/pokemon.service';
-import { lastValueFrom } from 'rxjs';
+import { interval, Observable, lastValueFrom, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +12,6 @@ export class AppComponent {
 
   constructor(private contactService: PokemonService) {
     this.gerarLista();
-
    }
 
   pokemon:any;
@@ -23,9 +22,59 @@ export class AppComponent {
   revealed = false;
   errou = false;
   acertou = false;
+  classico = false;
+  step = 0;
+  time = 0;
+  subscription = new Subscription();
+  total = 0;
+
+  timer$ = interval(1000);
+  seconds = 0;
+
+  async start() {
+    this.subscription = this.timer$.subscribe(async () => {
+      this.time--;
+  
+      if(this.time == 0){
+        await this.stop();
+
+        if(this.step == 3)
+          this.step = 5;
+      }
+    });
+  }
+
+  async stop() {
+    // Unsubscribe to stop the timer
+    await this.subscription.unsubscribe();
+  }
+
+  async goNextStep(newStep:number){
+    this.step = newStep;
+    this.classico = this.step == 3;
+    this.loading = false;
+    this.revealed = false;
+    this.errou = false;
+    this.acertou = false;
+    this.total = 0;
+    this.score = 0;
+    
+    if(this.step != 0)
+    {
+      this.gerarLista();
+    }
+    else{
+      this.stop();
+    }
+   
+    if(this.classico){
+      this.time = 60;
+      this.start();
+    }
+  }
 
   async pegarPokemon(){
-    const id = Math.floor(Math.random() * (151 - 1 + 1) + 1)
+    const id = Math.floor(Math.random() * (152) + 1)
     const articles$ = this.contactService.getPokemonById(id);
     this.pokemon = await lastValueFrom(articles$);
   }
@@ -36,7 +85,9 @@ export class AppComponent {
   }
 
   async selectPokemon(name:string){
-
+    this.revealed = true;
+    this.total ++;
+    
     if(this.pokemon.name==name){
       this.score++;
       this.acertou = true;
@@ -44,7 +95,6 @@ export class AppComponent {
       this.errou = true;
     }
 
-    this.revealed = true;
   }
 
   async gerarLista(){
@@ -64,7 +114,7 @@ export class AppComponent {
   async reiniciar(){
     this.score = 0;
 
-    this.gerarLista();
+    this.goNextStep(this.classico ? 3 : 4);
   }
 
 }

@@ -1,38 +1,89 @@
 <div class="global-card">
+
+  <div *ngIf="step == 0">
+    <h3>
+      Bem Vindo!
+    </h3>
+
+    <h4>
+      Escolha qual forma do jogo:
+      <br>
+      <ul>
+        <li>Clássico - Quantos você acerta em 60 segundos</li>
+        <li>Custom - Quantos você consegue acertar até errar</li>
+      </ul>
+    </h4>
+
+    <div class="button-options">
+      <div class="poke-option" (click)="goNextStep(3)">Clássico</div>
+      <br>
+      <div class="poke-option" (click)="goNextStep(4)">Custom</div>
+    </div>
+  </div>
+
+
+  <div *ngIf="step == 3 || step == 4">
+    <div>
+      <div class="div-intro">
+        <div class="poke-option" (click)="goNextStep(0)">Voltar</div>
+        <div class="poke-option" *ngIf="classico">{{time >= 10 ? time : '0' + time}}</div>
+      </div>
+      <div *ngIf="pokemon">
+        <img [ngClass]="{'global-silhouette': !revealed}" style="width: 100%;" [src]="pokemon.sprites.front_default">
+      </div>
+    </div>
   
-
-  <div>
-    <div>
+    <div class="global-card-header">
+      <div>
+        <h2>
+          {{!revealed ? "Que pokemon é esse?" : pokemon.name}}
+        </h2>
+      </div>
     </div>
-    <div *ngIf="pokemon">
-      <img [ngClass]="{'global-silhouette': !revealed}" style="width: 100%;" [src]="pokemon.sprites.front_default">
+  
+    <div class="poke-option-wrapper" *ngIf="!loading && !errou && !acertou">
+      <div *ngFor="let item of pokemonOptionsList; let i=index" class="poke-option" (click)="selectPokemon(item)">{{item}}
+      </div>
     </div>
-  </div>
-
-  <div class="global-card-header">
-    <div>
-      <h1>
-        {{!revealed ? "Who's that pokemon?" : pokemon.name}}
-      </h1>
+  
+    <div *ngIf="!loading && errou && !classico">
+      Você errou, seu score Final foi: {{score}} 
+  
+      <div class="button-options">
+        <div class="poke-option" (click)="reiniciar()">Tentar de novo</div>
+        <br>
+        <div class="poke-option" (click)="goNextStep(0)">Home</div>
+      </div>
     </div>
-  </div>
 
-  <div class="poke-option-wrapper" *ngIf="!loading && !errou && !acertou">
-    <div *ngFor="let item of pokemonOptionsList; let i=index" class="poke-option" (click)="selectPokemon(item)">{{item}}
+    <div *ngIf="!loading && errou && classico">
+      Errou! Score: {{score}}
+  
+      <div class="button-options">
+        <div class="poke-option" (click)="gerarLista()">Próximo</div>
+      </div>
     </div>
+  
+    <div *ngIf="!loading && acertou">
+      Acertou! Score: {{score}}
+  
+      <div class="button-options">
+        <div class="poke-option" (click)="gerarLista()">Próximo</div>
+      </div>
+    </div>
+
   </div>
-
-  <div *ngIf="!loading && errou">
-    Infelizmente você errou, seu score Final foi: {{score}} 
-
-    <div class="poke-option" (click)="reiniciar()">Tentar de novo</div>
-
-  </div>
-
-  <div *ngIf="!loading && acertou">
-    Acertou! Score: {{score}}
-
-    <div class="poke-option" (click)="gerarLista()">Próximo</div>
+  
+  <div *ngIf="step == 5">
+    <div *ngIf="!loading && classico && time <= 0">
+      Finalizado! Você acertou {{score}} de {{total}} em 60 segundos!
+    
+      <div class="button-options">
+        <div class="poke-option" (click)="reiniciar()">Tentar de novo</div>
+        <br>
+        <div class="poke-option" (click)="goNextStep(0)">Home</div>
+      </div>
+    </div>
   </div>
 
 
