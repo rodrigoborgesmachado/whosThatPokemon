@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { PokemonService } from './services/pokemon.service';
+import { SunSaleService } from './services/sunsale.service';
 import { interval, Observable, lastValueFrom, Subscription } from 'rxjs';
 
 @Component({
@@ -10,14 +11,16 @@ import { interval, Observable, lastValueFrom, Subscription } from 'rxjs';
 export class AppComponent {
   title = 'whosThatPokemon';
 
-  constructor(private contactService: PokemonService) {
+  constructor(private contactService: PokemonService, private sunsaleService: SunSaleService) {
     this.gerarLista();
    }
 
   pokemon:any;
   randomPokemonList:any;
   pokemonOptionsList:any;
+  ranking:any;
   score = 0;
+  erros = 0;
   loading = false;
   revealed = false;
   errou = false;
@@ -35,6 +38,7 @@ export class AppComponent {
   kalos = true;
   alola = true;
   paldea = true;
+  nome = "";
 
   timer$ = interval(1000);
   seconds = 0;
@@ -59,6 +63,17 @@ export class AppComponent {
 
   async goNextStep(newStep:number){
     this.step = newStep;
+    
+    if(newStep == 6){
+      this.stop();
+      return;
+    }
+
+    if(newStep == 7){
+      this.buscarRanking();
+      return;
+    }
+
     this.classico = this.step == 3;
     this.loading = false;
     this.revealed = false;
@@ -66,6 +81,7 @@ export class AppComponent {
     this.acertou = false;
     this.total = 0;
     this.score = 0;
+    this.erros = 0;
     
     if(this.step != 0)
     {
@@ -91,6 +107,16 @@ export class AppComponent {
     this.randomPokemonList = await lastValueFrom(articles$);
   }
 
+  async inserirRanking(){
+    await this.sunsaleService.postRanking(this.nome, this.classico ? 60 : 0, this.score, this.erros, this.kanto, this.johto, this.hoenn, this.sinnoh, this.unova, this.kalos, this.alola, this.paldea);
+    this.goNextStep(0);
+  }
+
+  async buscarRanking(){
+    const temp = this.sunsaleService.getRanking();
+    this.ranking = await lastValueFrom(temp);
+  }
+
   async selectPokemon(name:string){
     this.revealed = true;
     this.total ++;
@@ -99,6 +125,7 @@ export class AppComponent {
       this.score++;
       this.acertou = true;
     }else{
+      this.erros++;
       this.errou = true;
     }
 

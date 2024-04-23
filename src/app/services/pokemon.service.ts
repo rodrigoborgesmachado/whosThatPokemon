@@ -73,7 +73,6 @@ export class PokemonService {
     }
 
     const i = this.getRandomInt(0, this.index.length-1);
-    console.log(i);
     const id = this.getRandomInt(this.regions[i][0], this.regions[i][1]);
 
     return this.getPokemonById(id);
