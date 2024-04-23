@@ -18,9 +18,66 @@
       <div class="poke-option" (click)="goNextStep(3)">Clássico</div>
       <br>
       <div class="poke-option" (click)="goNextStep(4)">Custom</div>
+      <br>
+      <div class="poke-option" (click)="goNextStep(2)">Configurar Regiões</div>
     </div>
   </div>
 
+  <div *ngIf="step == 2">
+    <div class="div-intro">
+      <div class="div-intro">
+        <div class="poke-option" (click)="goNextStep(0)">Voltar</div>
+      </div>
+    </div>
+    <br>    
+    <div class="poke-option">
+      <div class="region-option">
+        <input type="checkbox" [(ngModel)]="kanto"><label>Kanto</label>
+      </div>
+    </div>
+    <br>    
+    <div class="poke-option">
+      <div class="region-option">
+        <input type="checkbox" [(ngModel)]="johto"><label>Johto</label>
+      </div>
+    </div>
+    <br>    
+    <div class="poke-option">
+      <div class="region-option">
+        <input type="checkbox" [(ngModel)]="hoenn"><label>Hoenn</label>
+      </div>
+    </div>
+    <br>    
+    <div class="poke-option">
+      <div class="region-option">
+        <input type="checkbox" [(ngModel)]="sinnoh"><label>Sinnoh</label>
+      </div>
+    </div>
+    <br>    
+    <div class="poke-option">
+      <div class="region-option">
+        <input type="checkbox" [(ngModel)]="unova"><label>Unova</label>
+      </div>
+    </div>
+    <br>    
+    <div class="poke-option">
+      <div class="region-option">
+        <input type="checkbox" [(ngModel)]="kalos"><label>Kalos</label>
+      </div>
+    </div>
+    <br>    
+    <div class="poke-option">
+      <div class="region-option">
+        <input type="checkbox" [(ngModel)]="alola"><label>Alola</label>
+      </div>
+    </div>
+    <br>    
+    <div class="poke-option">
+      <div class="region-option">
+        <input type="checkbox" [(ngModel)]="paldea"><label>Paldea</label>
+      </div>
+    </div>
+  </div>
 
   <div *ngIf="step == 3 || step == 4">
     <div>

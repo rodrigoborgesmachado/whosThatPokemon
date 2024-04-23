@@ -27,6 +27,14 @@ export class AppComponent {
   time = 0;
   subscription = new Subscription();
   total = 0;
+  kanto = true;
+  johto = true;
+  hoenn = true;
+  sinnoh = true;
+  unova = true;
+  kalos = true;
+  alola = true;
+  paldea = true;
 
   timer$ = interval(1000);
   seconds = 0;
@@ -74,8 +82,7 @@ export class AppComponent {
   }
 
   async pegarPokemon(){
-    const id = Math.floor(Math.random() * (152) + 1)
-    const articles$ = this.contactService.getPokemonById(id);
+    const articles$ = this.contactService.getOneRandomPokemon(this.kanto, this.johto, this.hoenn, this.sinnoh, this.unova, this.kalos, this.alola, this.paldea);
     this.pokemon = await lastValueFrom(articles$);
   }
 
