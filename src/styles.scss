@@ -1,44 +1,110 @@
 /* You can add global styles to this file, and also import other style files */
 
 :root {
-    --primary-color:#072AC8;
+    /* Brand / Pokémon core */
+    --primary-color: #4715bb;     /* Roxo royal */
+    --secondary-color: #F72585;   /* Rosa magenta */
+    --accent-color: #368ca7;
+    --accent-2: #2CDEBF;
+
+    /* Surfaces & text */
     --background-color: #FDFDFE;
+    --color-surface: #FFFFFF;
+    --color-surface-variant: #F3F5FA;
     --text-color-primary: #191C1B;
-    --text-color-secondary: #BEC9C4;
-    --text-color-accent: #2CDEBF;
-    --text-color-code: #426278;
+    --text-color-secondary: #5B6B79;
+    --text-color-muted: #9AA7B3;
     --text-color-button: #FFFFFF;
 
-    //BUTTON - primary
+    /* Buttons */
     --button-color-primary: #006B59;
+    --button-color-primary-hover: rgba(0, 107, 89, 0.9);
+    --button-color-primary-disabled: rgba(31, 31, 31, 0.12);
+    --button-text-primary-disabled: rgba(25, 28, 27, 1);
 
-        //BUTTON - primary - hover
-        --button-color-primary-hover: rgb(0, 107, 89,0.9);
-
-        //BUTTON - primary - disabled
-        --button-color-primary-disabled: rgba(31, 31, 31, 0.12);
-        --button-text-primary-disabled: rgba(25, 28, 27, 1);
-
+    /* Borders / separators */
     --separator-color-primary: #3F4946;
     --separator-marker-color-primary: #006B59;
-  
+
+    /* Cards / elevations */
     --block-color: #FAFDFA;
     --block-color-secundary: #FAFDFA;
+    --shadow-soft: 0 2px 10px rgba(0,0,0,.10);
+    --shadow-strong: 0 8px 24px rgba(0,0,0,.18);
 
-    --color-surface:#FFFFFF;
-    --color-surface-variant:#1F1F1F;
+    /* “Foil” border & glow */
+    --foil-border: conic-gradient(
+    from 180deg,
+    #3A0CA3,   /* roxo royal */
+    #F72585,   /* magenta premium */
+    #4CC9F0,   /* azul turquesa */
+    #7209B7,   /* roxo profundo */
+    #B5179E,   /* rosa violeta */
+    #4895EF,   /* azul vivo */
+    #560BAD,   /* roxo escuro */
+    #F72585,   /* repete magenta pra fechar ciclo */
+    #3A0CA3    /* volta pro roxo */
+    );
+    --focus-ring: 0 0 0 3px rgba(255, 203, 5, 0.45);
+
+    /* Feedback */
+    --correct: #22C55E;
+    --wrong: #EF4444;
+    --warning: #F59E0B;
+
+    /* XP / progress */
+    --xp-gradient: linear-gradient(90deg, #a09361 0%, #9397b6 100%);
+
+    /* Type chips (Gen-1/Gen-2 vibe) */
+    --type-normal: #A8A77A;
+    --type-fire: #EE8130;
+    --type-water: #6390F0;
+    --type-electric: #F7D02C;
+    --type-grass: #7AC74C;
+    --type-ice: #96D9D6;
+    --type-fighting: #C22E28;
+    --type-poison: #A33EA1;
+    --type-ground: #E2BF65;
+    --type-flying: #A98FF3;
+    --type-psychic: #F95587;
+    --type-bug: #A6B91A;
+    --type-rock: #B6A136;
+    --type-ghost: #735797;
+    --type-dragon: #6F35FC;
+    --type-dark: #705746;
+    --type-steel: #B7B7CE;
+    --type-fairy: #D685AD;
+}
+
+/* Optional dark mode (toggle with <html data-theme="dark">) */
+:root[data-theme="dark"] {
+    --background-color: #0B1022;
+    --color-surface: #121733;
+    --color-surface-variant: #0E1430;
+    --text-color-primary: #E7EAF5;
+    --text-color-secondary: #C5CEE0;
+    --text-color-muted: #99A4C1;
+    --shadow-soft: 0 2px 10px rgba(0,0,0,.35);
+    --shadow-strong: 0 10px 28px rgba(0,0,0,.55);
 }
 
 body {
-    font-family: 'Poppins';
+    font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
     font-size: 22px;
-    background: linear-gradient(135deg, #FFDE00 0%, #3B4CCA 100%);
+    background: linear-gradient(135deg, var(--accent-color) 0%, var(--primary-color) 100%);
     min-height: 100vh;
     margin: 0;
+    color: var(--text-color-primary);
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
 }
 
-
-
+h1, h2 {
+    color: var(--text-color-primary);
+    margin: 2px 0;
+}
 
 .global-silhouette{
     //mudar tamanho não deveria estar aqui
@@ -48,26 +114,45 @@ body {
     width: 100%;
 }
 
-.global-card{
-    background-color: rgba(255,255,255,0.9);
-    border: 3px solid #FFCB05;
+.global-card {
+    position: relative;
+    background: rgba(255,255,255,0.9);
     border-radius: 24px;
-    box-shadow: 0 0 2px 0 rgba(0,0,0,.14),0 2px 2px 0 rgba(0,0,0,.12),0 1px 3px 0 rgba(0,0,0,.2)!important;
     padding: 24px;
     width: 360px;
     margin: auto;
-    margin-top: 56px;
+    box-shadow: var(--shadow-soft);
+    border: 2px solid transparent;
+    background-clip: padding-box;
+}
 
-    .global-card-header{
-        display: flex;
-        justify-content: space-between;
-        flex-flow: wrap;
-        margin-bottom: 16px;
-    }
+.global-card::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    border-radius: 26px;
+    background: var(--foil-border);
+    mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    padding: 2px;
+    pointer-events: none;
+    filter: saturate(1.1);
+    opacity: 0.9;
+}
 
-    .global-card-body{
-        
-    }
+.global-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-strong);
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.global-card-header {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
 }
 
 .global-lineWrapper{
@@ -96,31 +181,50 @@ body {
     }
 }
 
-
-.poke-option-wrapper{
+.poke-option-wrapper {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 12px;
 }
-.poke-option{
+
+.poke-option {
     border: none;
     border-radius: 15px;
     display: flex;
     justify-content: center;
-    padding: 12px;
+    padding: 14px 16px;
     cursor: pointer;
-    background: linear-gradient(135deg, #FFCB05, #3B4CCA);
+    background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
     color: var(--text-color-button);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: transform .15s ease, box-shadow .2s ease, filter .2s ease;
+    box-shadow: var(--shadow-soft);
 }
 
-.poke-option:hover{
-    transform: scale(1.05);
-    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+.poke-option:hover {
+    transform: translateY(-1px) scale(1.02);
+    box-shadow: var(--shadow-strong);
 }
 
-.poke-option:active{
-    transform: scale(0.95);
+.poke-option:active {
+    transform: translateY(0px) scale(0.98);
+}
+
+.poke-option.is-correct {
+    background: linear-gradient(135deg, var(--correct), #16A34A);
+}
+
+.poke-option.is-wrong {
+    background: linear-gradient(135deg, var(--wrong), #B91C1C);
+}
+
+@keyframes sparkle {
+    0% { filter: brightness(1); }
+    50% { filter: brightness(1.3); }
+    100% { filter: brightness(1); }
+}
+
+.poke-option.is-correct {
+    animation: sparkle .6s ease-in-out;
 }
 
 .grass{
@@ -130,22 +234,88 @@ body {
     background-color: #B567CE;
 }
 
-h1{
-    color: #333333;
-    margin-top: 2px;
-    margin-bottom: 2px;
-}
-
-h2{
-    color: #333333;
-    margin-top: 2px;
-    margin-bottom: 2px;
-}
-
 .button-options{
     display: flex;
     flex-direction: column;
 }
+
+.btn {
+    appearance: none;
+    border: none;
+    border-radius: 14px;
+    padding: 12px 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform .08s ease, box-shadow .2s ease, filter .2s ease;
+    box-shadow: 0 2px 0 rgba(0,0,0,.2);
+}
+
+.btn:active {
+    transform: translateY(2px) scale(0.99);
+    box-shadow: 0 0 0 rgba(0,0,0,0);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
+    color: var(--text-color-button);
+}
+
+.btn-ghost {
+    background: var(--color-surface);
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, #FF6B6B, #C81E1E);
+    color: #fff;
+}
+
+.btn:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring);
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 6px 10px;
+    border-radius: 999px;
+    color: #fff;
+    box-shadow: var(--shadow-soft);
+}
+
+.chip { /* smaller, lighter variant */
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 8px;
+    border-radius: 999px;
+    color: #fff;
+    font-size: 12px;
+    opacity: .95;
+}
+
+/* Type color helpers */
+.type-grass{ background: var(--type-grass); }
+.type-fire{ background: var(--type-fire); }
+.type-water{ background: var(--type-water); }
+.type-electric{ background: var(--type-electric); }
+.type-poison{ background: var(--type-poison); }
+.type-bug{ background: var(--type-bug); }
+.type-psychic{ background: var(--type-psychic); }
+.type-rock{ background: var(--type-rock); }
+.type-ghost{ background: var(--type-ghost); }
+.type-dragon{ background: var(--type-dragon); }
+.type-ice{ background: var(--type-ice); }
+.type-dark{ background: var(--type-dark); }
+.type-steel{ background: var(--type-steel); }
+.type-fairy{ background: var(--type-fairy); }
+.type-ground{ background: var(--type-ground); }
+.type-flying{ background: var(--type-flying); }
+.type-normal{ background: var(--type-normal); }
 
 .button-options button{
     margin: 16px;
