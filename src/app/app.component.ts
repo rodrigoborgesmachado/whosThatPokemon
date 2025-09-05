@@ -12,6 +12,7 @@ export class AppComponent {
   title = 'whosThatPokemon';
 
   constructor(private contactService: PokemonService, private sunsaleService: SunSaleService) {
+    this.loadRegionConfig();
     this.gerarLista();
    }
 
@@ -31,17 +32,47 @@ export class AppComponent {
   subscription = new Subscription();
   total = 0;
   kanto = true;
-  johto = true;
-  hoenn = true;
-  sinnoh = true;
-  unova = true;
-  kalos = true;
-  alola = true;
-  paldea = true;
+  johto = false;
+  hoenn = false;
+  sinnoh = false;
+  unova = false;
+  kalos = false;
+  alola = false;
+  paldea = false;
   nome = "";
 
   timer$ = interval(1000);
   seconds = 0;
+
+  saveRegionConfig() {
+    sessionStorage.setItem('regionConfig', JSON.stringify({
+      kanto: this.kanto,
+      johto: this.johto,
+      hoenn: this.hoenn,
+      sinnoh: this.sinnoh,
+      unova: this.unova,
+      kalos: this.kalos,
+      alola: this.alola,
+      paldea: this.paldea
+    }));
+  }
+
+  loadRegionConfig() {
+    const configString = sessionStorage.getItem('regionConfig');
+    if (configString) {
+      const config = JSON.parse(configString);
+      this.kanto = config.kanto;
+      this.johto = config.johto;
+      this.hoenn = config.hoenn;
+      this.sinnoh = config.sinnoh;
+      this.unova = config.unova;
+      this.kalos = config.kalos;
+      this.alola = config.alola;
+      this.paldea = config.paldea;
+    } else {
+      this.saveRegionConfig();
+    }
+  }
 
   async start() {
     this.subscription = this.timer$.subscribe(async () => {
