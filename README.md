@@ -1,27 +1,51 @@
-# WhosThatPokemon
+# Who’s that Pokémon
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.0.4.
+Jogo web para adivinhar o Pokémon pela silhueta, desenvolvido em **Angular** para prática e diversão.  
+Dados fornecidos pela **[PokeAPI](https://pokeapi.co/)**.
 
-## Development server
+🔗 **Projeto online:** [whosthatpokemon.sunsalesystem.com.br](https://whosthatpokemon.sunsalesystem.com.br/)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+---
 
-## Code scaffolding
+## Como rodar localmente
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Pré-requisitos
+- Node.js >= 18
+- npm ou yarn
+- Angular CLI instalado globalmente:
+  ```bash
+  npm install -g @angular/cli
+  ```
 
-## Build
+### Passo a passo
+```bash
+# 1. Instalar dependências
+npm install
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+# 2. Rodar em modo desenvolvimento
+ng serve -o
+# ou
+npm start
+```
 
-## Running unit tests
+O projeto abrirá em `http://localhost:4200/`.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+---
 
-## Running end-to-end tests
+## Build de produção
+Para gerar a versão otimizada:
+```bash
+ng build --configuration production
+```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Os arquivos finais ficarão em `dist/whos-that-pokemon/` (ou no diretório equivalente gerado pelo Angular para o seu projeto).
 
-## Further help
+---
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Stack utilizada
+- Angular
+- TypeScript
+- CSS
+- PokeAPI
+
+---
