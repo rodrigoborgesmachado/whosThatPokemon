@@ -27,6 +27,5 @@
   "routes": [
     { "route": "/index.html", "redirect": "/", "statusCode": 301 },
     { "route": "/src/*", "statusCode": 410 },
-    { "route": "/src/contatos.html", "redirect": "/contato", "statusCode": 301 }
   ]
 }
